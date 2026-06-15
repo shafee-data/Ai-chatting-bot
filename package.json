@@ -1,0 +1,46 @@
+{
+  "name": "metach-ai-website",
+  "version": "2.0.0",
+  "description": "Next-generation AI assistant website powered by Claude API. Learn web development from basic to advanced.",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "dev": "python -m http.server 8000 --directory .",
+    "start": "python -m http.server 8000 --directory .",
+    "serve": "npx http-server",
+    "build": "npm run lint && npm run test",
+    "lint": "eslint js/**/*.js --fix",
+    "test": "jest",
+    "deploy": "npm run build && git push origin main",
+    "clean": "rm -rf node_modules dist coverage"
+  },
+  "keywords": [
+    "ai",
+    "claude",
+    "chat",
+    "assistant",
+    "web-development",
+    "javascript",
+    "api",
+    "anthropic"
+  ],
+  "author": "Kabi lash",
+  "license": "MIT",
+  "homepage": "https://github.com/your-username/AI-Website-Project",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/AI-Website-Project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/AI-Website-Project/issues"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "jest": "^29.0.0",
+    "prettier": "^3.0.0"
+  },
+  "dependencies": {}
+}

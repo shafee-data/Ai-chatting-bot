@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MetaCH Chat - Talk to AI powered by Claude API">
+    <title>MetaCH Chat — AI Assistant</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/advanced.css">
+</head>
+<body>
+    <!-- Background -->
+    <div class="grid-bg"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+
+    <!-- Chat Container -->
+    <div class="chat-container">
+        <!-- Header -->
+        <header class="chat-header">
+            <div class="header-left">
+                <a href="index.html" class="back-btn" title="Back to home">←</a>
+                <div class="header-info">
+                    <h1 class="chat-title">MetaCH</h1>
+                    <span class="header-status">
+                        <span class="status-dot"></span>
+                        Online
+                    </span>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <button id="clearBtn" class="header-btn" title="Clear conversation">
+                    <span>🗑️</span>
+                </button>
+                <button id="settingsBtn" class="header-btn" title="Settings">
+                    <span>⚙️</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Messages Area -->
+        <main class="chat-messages" id="messagesContainer">
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L20.5 7V17L12 22L3.5 17V7L12 2Z" stroke="#00d4ff" stroke-width="1" fill="rgba(0,212,255,0.06)"/>
+                        <circle cx="12" cy="12" r="3" fill="#00d4ff" opacity="0.85"/>
+                    </svg>
+                </div>
+                <h2>Welcome to MetaCH Chat</h2>
+                <p>Start a conversation with our AI assistant. Ask anything!</p>
+                
+                <div class="quick-prompts">
+                    <button class="prompt-chip" onclick="usePrompt(this)">
+                        <span class="prompt-icon">💡</span>
+                        Give me a creative idea
+                    </button>
+                    <button class="prompt-chip" onclick="usePrompt(this)">
+                        <span class="prompt-icon">📚</span>
+                        Explain quantum computing
+                    </button>
+                    <button class="prompt-chip" onclick="usePrompt(this)">
+                        <span class="prompt-icon">✍️</span>
+                        Write a poem about AI
+                    </button>
+                    <button class="prompt-chip" onclick="usePrompt(this)">
+                        <span class="prompt-icon">🌍</span>
+                        Tell me a fun fact
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Input Area -->
+        <div class="chat-footer">
+            <div class="input-wrapper">
+                <textarea 
+                    id="userInput" 
+                    class="message-input" 
+                    placeholder="Message MetaCH…" 
+                    rows="1"></textarea>
+                <button id="sendBtn" class="send-button" disabled>
+                    <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" fill="white"/></svg>
+                </button>
+            </div>
+
+            <div class="input-footer">
+                <p class="footer-text">
+                    <strong>MetaCH</strong> by <strong>Kabi lash</strong> • Powered by <strong>Claude AI</strong>
+                </p>
+                <p class="footer-hint">Press Shift+Enter for new line • Shift+Click to continue</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label for="apiKeyInput">Claude API Key</label>
+                    <input type="password" id="apiKeyInput" placeholder="sk_...">
+                    <small>Your key is stored locally only</small>
+                </div>
+
+                <div class="setting-group">
+                    <label for="modelSelect">AI Model</label>
+                    <select id="modelSelect">
+                        <option value="claude-opus-4-1">Claude Opus (Most capable)</option>
+                        <option value="claude-sonnet-4-20250514">Claude Sonnet (Balanced)</option>
+                        <option value="claude-haiku-3-5">Claude Haiku (Fast)</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <label for="tokensSlider">Max Tokens</label>
+                    <input type="range" id="tokensSlider" min="256" max="4096" value="1024" step="256">
+                    <span id="tokensValue">1024</span>
+                </div>
+
+                <div class="setting-group checkbox">
+                    <input type="checkbox" id="darkMode" checked>
+                    <label for="darkMode">Dark Mode</label>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Typing Indicator -->
+    <template id="typingIndicatorTemplate">
+        <div class="message assistant typing-message">
+            <div class="message-avatar">MC</div>
+            <div class="message-bubble">
+                <div class="typing-dots">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- User Message Template -->
+    <template id="userMessageTemplate">
+        <div class="message user">
+            <div class="message-bubble"></div>
+            <div class="message-avatar">You</div>
+        </div>
+    </template>
+
+    <!-- Assistant Message Template -->
+    <template id="assistantMessageTemplate">
+        <div class="message assistant">
+            <div class="message-avatar">MC</div>
+            <div class="message-bubble"></div>
+        </div>
+    </template>
+
+    <!-- Scripts -->
+    <script>
+        // Configuration
+        const CONFIG = {
+            API_ENDPOINT: 'https://api.anthropic.com/v1/messages',
+            MAX_RETRIES: 3,
+            TIMEOUT: 30000,
+            DEFAULT_MODEL: 'claude-opus-4-1',
+            DEFAULT_MAX_TOKENS: 1024
+        };
+
+        // State
+        let conversationHistory = [];
+        let isLoading = false;
+        let currentApiKey = localStorage.getItem('metach_api_key') || '';
+        let selectedModel = localStorage.getItem('metach_model') || CONFIG.DEFAULT_MODEL;
+        let maxTokens = parseInt(localStorage.getItem('metach_tokens') || CONFIG.DEFAULT_MAX_TOKENS);
+
+        // DOM Elements
+        const messagesContainer = document.getElementById('messagesContainer');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const emptyState = document.getElementById('emptyState');
+        const settingsModal = document.getElementById('settingsModal');
+        const settingsBtn = document.getElementById('settingsBtn');
+        const clearBtn = document.getElementById('clearBtn');
+
+        // Event Listeners
+        userInput.addEventListener('input', handleInput);
+        userInput.addEventListener('keydown', handleKeyPress);
+        sendBtn.addEventListener('click', sendMessage);
+        settingsBtn.addEventListener('click', openSettings);
+        clearBtn.addEventListener('click', clearConversation);
+
+        // Input Handling
+        function handleInput(e) {
+            userInput.style.height = 'auto';
+            userInput.style.height = Math.min(userInput.scrollHeight, 120) + 'px';
+            sendBtn.disabled = !userInput.value.trim() || isLoading;
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        }
+
+        // Send Message
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message || isLoading) return;
+
+            if (!currentApiKey) {
+                alert('Please add your Claude API key in settings');
+                openSettings();
+                return;
+            }
+
+            isLoading = true;
+            sendBtn.disabled = true;
+            removeEmptyState();
+
+            // Add user message
+            addMessage('user', message);
+            conversationHistory.push({ role: 'user', content: message });
+            userInput.value = '';
+            userInput.style.height = 'auto';
+
+            // Show typing indicator
+            const typingId = showTypingIndicator();
+
+            try {
+                const response = await fetchWithRetry(CONFIG.API_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': currentApiKey,
+                        'anthropic-version': '2023-06-01'
+                    },
+                    body: JSON.stringify({
+                        model: selectedModel,
+                        max_tokens: maxTokens,
+                        system: 'You are MetaCH, a helpful AI assistant created by Kabi lash. Be friendly, concise, and thoughtful in your responses.',
+                        messages: conversationHistory
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.status} ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                const assistantMessage = data.content[0].text;
+
+                removeElement(typingId);
+                addMessage('assistant', assistantMessage);
+                conversationHistory.push({ role: 'assistant', content: assistantMessage });
+            } catch (error) {
+                removeElement(typingId);
+                console.error('Error:', error);
+                addMessage('assistant', `Error: ${error.message || 'Failed to get response. Please check your API key.'}`);
+            } finally {
+                isLoading = false;
+                sendBtn.disabled = !userInput.value.trim();
+                userInput.focus();
+            }
+        }
+
+        // Fetch with Retry
+        async function fetchWithRetry(url, options, retries = CONFIG.MAX_RETRIES) {
+            try {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), CONFIG.TIMEOUT);
+                
+                const response = await fetch(url, {
+                    ...options,
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeout);
+                return response;
+            } catch (error) {
+                if (retries > 0 && error.name !== 'AbortError') {
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    return fetchWithRetry(url, options, retries - 1);
+                }
+                throw error;
+            }
+        }
+
+        // Message Management
+        function addMessage(role, text) {
+            const template = role === 'user' ? 
+                document.getElementById('userMessageTemplate') : 
+                document.getElementById('assistantMessageTemplate');
+            
+            const messageEl = template.content.cloneNode(true);
+            const bubble = messageEl.querySelector('.message-bubble');
+            bubble.textContent = text;
+            
+            messagesContainer.appendChild(messageEl);
+            scrollToBottom();
+        }
+
+        function showTypingIndicator() {
+            const template = document.getElementById('typingIndicatorTemplate');
+            const typingEl = template.content.cloneNode(true);
+            const id = 'typing_' + Date.now();
+            typingEl.querySelector('.message').id = id;
+            messagesContainer.appendChild(typingEl);
+            scrollToBottom();
+            return id;
+        }
+
+        function removeEmptyState() {
+            if (emptyState && emptyState.parentNode) {
+                emptyState.remove();
+            }
+        }
+
+        function removeElement(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Quick Prompts
+        function usePrompt(btn) {
+            userInput.value = btn.textContent.trim().replace(/^[📚💡✍️🌍]\s*/, '');
+            userInput.dispatchEvent(new Event('input'));
+            userInput.focus();
+        }
+
+        // Settings
+        function openSettings() {
+            const apiKeyInput = document.getElementById('apiKeyInput');
+            const modelSelect = document.getElementById('modelSelect');
+            const tokensSlider = document.getElementById('tokensSlider');
+            const tokensValue = document.getElementById('tokensValue');
+
+            apiKeyInput.value = currentApiKey;
+            modelSelect.value = selectedModel;
+            tokensSlider.value = maxTokens;
+            tokensValue.textContent = maxTokens;
+
+            tokensSlider.addEventListener('input', (e) => {
+                tokensValue.textContent = e.target.value;
+            });
+
+            settingsModal.style.display = 'flex';
+
+            // Save settings
+            const modalFooter = document.querySelector('.modal-footer');
+            modalFooter.querySelector('.btn-secondary').onclick = () => {
+                currentApiKey = apiKeyInput.value.trim();
+                selectedModel = modelSelect.value;
+                maxTokens = parseInt(tokensSlider.value);
+
+                localStorage.setItem('metach_api_key', currentApiKey);
+                localStorage.setItem('metach_model', selectedModel);
+                localStorage.setItem('metach_tokens', maxTokens);
+
+                closeModal();
+            };
+        }
+
+        function closeModal() {
+            settingsModal.style.display = 'none';
+        }
+
+        function clearConversation() {
+            if (confirm('Clear all messages?')) {
+                conversationHistory = [];
+                messagesContainer.innerHTML = emptyState.outerHTML;
+                userInput.value = '';
+                sendBtn.disabled = true;
+            }
+        }
+
+        // Click outside modal to close
+        window.onclick = (e) => {
+            if (e.target === settingsModal) {
+                closeModal();
+            }
+        };
+
+        // Load settings on init
+        window.addEventListener('DOMContentLoaded', () => {
+            currentApiKey = localStorage.getItem('metach_api_key') || '';
+            selectedModel = localStorage.getItem('metach_model') || CONFIG.DEFAULT_MODEL;
+            maxTokens = parseInt(localStorage.getItem('metach_tokens') || CONFIG.DEFAULT_MAX_TOKENS);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MetaCH - Next-generation AI assistant powered by Claude API. Fast, intelligent, and beautifully designed.">
+    <meta name="theme-color" content="#07080d">
+    <title>MetaCH — AI Assistant by Kabi lash</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/advanced.css">
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="grid-bg"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">MC</span>
+                <div class="logo-text">
+                    <span class="logo-name">MetaCH</span>
+                    <span class="logo-sub">AI Assistant</span>
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="chat.html" class="nav-link nav-cta">Try Chat</a></li>
+            </ul>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="menuToggle">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title" data-text="Welcome to MetaCH">
+                Welcome to MetaCH
+            </h1>
+            <p class="hero-subtitle">
+                Your next-generation AI companion. Fast, intelligent, and always learning.
+                <br>Powered by advanced neural networks and built with care.
+            </p>
+
+            <div class="hero-cta">
+                <a href="chat.html" class="btn btn-primary">Start Chatting Now</a>
+                <a href="#features" class="btn btn-secondary">Learn More</a>
+            </div>
+
+            <!-- Stats -->
+            <div class="hero-stats reveal">
+                <div class="stat">
+                    <span class="stat-value" data-count="1M+">1M+</span>
+                    <span class="stat-label">Messages Processed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" data-count="98%">98%</span>
+                    <span class="stat-label">User Satisfaction</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" data-count="24/7">24/7</span>
+                    <span class="stat-label">Available</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero Visual -->
+        <div class="hero-visual reveal">
+            <div class="neural-sphere">
+                <svg viewBox="0 0 100 100" class="sphere-svg">
+                    <defs>
+                        <linearGradient id="sphereGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.8" />
+                            <stop offset="100%" style="stop-color:#0088cc;stop-opacity:0.4" />
+                        </linearGradient>
+                    </defs>
+                    <circle cx="50" cy="50" r="45" fill="url(#sphereGradient)" opacity="0.3"/>
+                    <circle cx="50" cy="50" r="40" stroke="#00d4ff" stroke-width="1" fill="none" opacity="0.5"/>
+                    <circle cx="50" cy="50" r="35" stroke="#00d4ff" stroke-width="0.5" fill="none" opacity="0.3"/>
+                    <circle cx="50" cy="50" r="20" fill="#00d4ff" opacity="0.6" class="pulse"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title reveal">Powerful Features</h2>
+            <p class="section-subtitle reveal">Everything you need for intelligent conversations</p>
+
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card reveal">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Instant responses powered by state-of-the-art Claude AI. No waiting, pure speed.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Highly Intelligent</h3>
+                    <p>Understand context, nuance, and complexity. Truly conversational AI.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure & Private</h3>
+                    <p>Your conversations are encrypted and never stored. Complete privacy guaranteed.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card reveal">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Ready</h3>
+                    <p>Seamlessly works on any device. Chat from anywhere, anytime.</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Beautiful Design</h3>
+                    <p>Modern, elegant UI with smooth animations and glassmorphism effects.</p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="feature-card reveal">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Easy Integration</h3>
+                    <p>Simple API. Works with any application. Built on open standards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="tech-stack reveal">
+        <div class="container">
+            <h2 class="section-title">Built With Modern Tech</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>Frontend</h4>
+                    <p>HTML5 • CSS3 • JavaScript ES6+</p>
+                </div>
+                <div class="tech-card">
+                    <h4>AI Engine</h4>
+                    <p>Claude API • Anthropic</p>
+                </div>
+                <div class="tech-card">
+                    <h4>Deployment</h4>
+                    <p>GitHub Pages • Netlify • Vercel</p>
+                </div>
+                <div class="tech-card">
+                    <h4>Performance</h4>
+                    <p>Zero Dependencies • Optimized</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title reveal">About MetaCH</h2>
+            
+            <div class="about-content">
+                <div class="about-text reveal">
+                    <h3>Created by NextGen Developer</h3>
+                    <p>MetaCH is a modern AI assistant interface crafted with precision and care. Built from the ground up to showcase best practices in web development, API integration, and user experience design.</p>
+                    
+                    <p>Whether you're learning web development or building production applications, MetaCH serves as a complete reference implementation with code examples from basic to advanced.</p>
+
+                    <div class="about-stats">
+                        <div class="about-stat">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-text">Open Source</span>
+                        </div>
+                        <div class="about-stat">
+                            <span class="stat-number">0</span>
+                            <span class="stat-text">Dependencies</span>
+                        </div>
+                        <div class="about-stat">
+                            <span class="stat-number">MIT</span>
+                            <span class="stat-text">Licensed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-image reveal">
+                    <div class="image-placeholder">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="imgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.8" />
+                                    <stop offset="100%" style="stop-color:#f0c040;stop-opacity:0.6" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="100" cy="100" r="90" fill="url(#imgGrad)" opacity="0.2"/>
+                            <text x="100" y="110" font-size="48" font-weight="bold" text-anchor="middle" fill="#00d4ff">MC</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="cta-section">
+        <div class="container">
+            <h2 class="cta-title reveal">Ready to Experience MetaCH?</h2>
+            <p class="cta-subtitle reveal">Start using AI-powered conversations right now</p>
+            <a href="chat.html" class="btn btn-large reveal">Launch Chat Interface</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>MetaCH</h4>
+                    <p>Next-generation AI assistant powered by Claude</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Links</h4>
+                    <ul>
+                        <li><a href="chat.html">Chat</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://docs.anthropic.com">API Docs</a></li>
+                        <li><a href="https://github.com">GitHub</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Follow</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Twitter">𝕏</a>
+                        <a href="#" aria-label="GitHub">⚙️</a>
+                        <a href="#" aria-label="LinkedIn">in</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 MetaCH. Built by <strong>Kabi lash</strong> • Powered by <strong>Anthropic Claude</strong></p>
+                <p>MIT License • Open Source Project</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/advanced.js"></script>
+</body>
+</html>
